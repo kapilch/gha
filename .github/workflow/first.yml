@@ -1,0 +1,12 @@
+name: Hello World on PR
+
+on:
+  pull_request:
+    types: [opened]  # triggers only when a PR is opened (omit for all PR events)
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello World
+        run: echo "Hello World from GitHub Actions!"
