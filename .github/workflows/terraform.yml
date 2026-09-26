@@ -1,0 +1,36 @@
+name: Matrix Test Workflow
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:1.13
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: terraform init
+      - run: terraform plan -out=tfplan
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: tfplan
+
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+
+    container:
+      image: hashicorp/terraform:1.13
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+
+      - run: terraform apply tfplan
