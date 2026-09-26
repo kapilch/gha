@@ -20,17 +20,16 @@ jobs:
           path: tfplan
 
   apply:
-    needs: plan
     runs-on: ubuntu-latest
-
     container:
       image: hashicorp/terraform:1.13
+    needs: plan
 
     steps:
       - uses: actions/checkout@v4
-
+      - run: terraform init
       - uses: actions/download-artifact@v4
         with:
           name: tfplan
-
+          path: tfplan
       - run: terraform apply tfplan
