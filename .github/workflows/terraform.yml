@@ -1,4 +1,4 @@
-name: Matrix Test Workflow
+name: Terraform Test Workflow
 
 on:
   workflow_dispatch:
