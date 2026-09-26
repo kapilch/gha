@@ -4,27 +4,31 @@ on:
   workflow_dispatch:
   push:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    outputs:
-      version: ${{ steps.ver.outputs.version }}
-
     steps:
-      - name: Set version output
-        id: ver
-        run: echo "version=1.2.3" >> $GITHUB_OUTPUT
+      - name: Create file
+        run: |
+          echo "Hello from build job" > version.txt
+
+      - name: Upload file
+        uses: actions/upload-artifact@v4
+        with:
+          name: version-file
+          path: version.txt
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Use version from build job
+      - name: Download file
+        uses: actions/download-artifact@v4
+        with:
+          name: version-file
+
+      - name: Display file
         run: |
-          echo "Version is ${{ needs.build.outputs.version }}"
+          cat version.txt
