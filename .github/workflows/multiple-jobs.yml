@@ -1,0 +1,23 @@
+name: matrix test workflow
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  plan:
+    strategy:
+      matrix:
+        account: [dev, prod]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Plan for ${{ matrix.account }}"
+
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Apply changes"
