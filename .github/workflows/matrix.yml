@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  terraform:
+  anything:
     strategy:
       matrix:
         version: [1.8.5, 1.9.8]
