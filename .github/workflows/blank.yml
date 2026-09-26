@@ -18,6 +18,7 @@ jobs:
         with:
           name: version-file
           path: version.txt
+          retention-days: 1
 
   deploy:
     needs: build
