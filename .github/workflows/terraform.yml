@@ -11,10 +11,29 @@ jobs:
       image: hashicorp/terraform:1.13
 
     steps:
-      - uses: actions/checkout@v4
-      - run: terraform init
-      - run: terraform plan -out=tfplan
-      - uses: actions/upload-artifact@v4
+      - name: Before checkout
+        run: |
+            echo "PWD=$(pwd)"
+            echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+            ls -la
+            ls -la $GITHUB_WORKSPACE || true
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: After checkout
+        run: |
+            pwd
+            ls -la
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Upload Terraform Plan
+        uses: actions/upload-artifact@v4
         with:
           name: tfplan
           path: tfplan
