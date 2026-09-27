@@ -2,7 +2,7 @@ name: Terraform Test Workflow
 
 on:
   workflow_dispatch:
-#   push:
+  push:
 
 jobs:
   plan:
