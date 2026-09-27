@@ -1,0 +1,11 @@
+name: Main Workflow
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  call-hello-workflow:
+    uses: ./.github/workflows/reusable-hello.yml
+    with:
+      name: Kapil
