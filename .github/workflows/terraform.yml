@@ -19,7 +19,7 @@ jobs:
             ls -la $GITHUB_WORKSPACE || true
 
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: ./.github/actions/checkout
 
       - name: After checkout
         run: |
@@ -49,7 +49,7 @@ jobs:
     needs: plan
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: ./.github/actions/checkout
       - run: terraform init
       - uses: actions/download-artifact@v4
         with:
