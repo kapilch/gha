@@ -1,6 +1,7 @@
 name: Terraform Deploy
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       environment:
@@ -16,6 +17,7 @@ on:
         description: Terraform Version
         required: true
         default: "1.13"
+  push:
 
 jobs:
   deploy:
