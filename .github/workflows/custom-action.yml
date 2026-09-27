@@ -1,0 +1,16 @@
+name: Test Composite Action
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Call Composite Action
+        uses: ./.github/actions/hello
+        with:
+          name: Kapil

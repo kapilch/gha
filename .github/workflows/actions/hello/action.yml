@@ -1,0 +1,23 @@
+name: Hello Action
+
+description: Simple composite action example
+
+inputs:
+  name:
+    required: true
+    description: Name to greet
+
+runs:
+  using: composite
+
+  steps:
+    - name: Say Hello
+      shell: bash
+      run: |
+        echo "Hello ${{ inputs.name }}"
+
+    - name: Show Current Directory
+      shell: bash
+      run: |
+        pwd
+        ls -la
