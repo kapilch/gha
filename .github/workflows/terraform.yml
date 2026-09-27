@@ -2,7 +2,7 @@ name: Terraform Test Workflow
 
 on:
   workflow_dispatch:
-  push:
+#   push:
 
 jobs:
   plan:
@@ -35,7 +35,7 @@ jobs:
         run: |
             pwd
             ls -lah
-            
+
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
         with:

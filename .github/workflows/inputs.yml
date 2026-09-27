@@ -1,0 +1,27 @@
+name: Terraform Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+
+      tf_version:
+        description: Terraform Version
+        required: true
+        default: "1.13"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: |
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Terraform Version: ${{ inputs.tf_version }}"
