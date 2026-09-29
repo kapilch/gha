@@ -19,6 +19,8 @@ jobs:
           ENVS="${{ inputs.environments }}"
           JSON=$(echo "$ENVS" | jq -Rc 'split(",")')
           echo "matrix={\"environment\":$JSON}" >> $GITHUB_OUTPUT
+          MATRIX="{\"environment\":$JSON}"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
 
   deploy:
     needs: build-matrix
