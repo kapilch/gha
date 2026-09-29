@@ -1,0 +1,32 @@
+name: Dynamic Jobs
+
+on:
+  workflow_dispatch:
+    inputs:
+      environments:
+        description: "Comma separated environments"
+        default: "dev,test,prod"
+
+jobs:
+  build-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+
+    steps:
+      - id: set
+        run: |
+          ENVS="${{ inputs.environments }}"
+          JSON=$(echo "$ENVS" | jq -R 'split(",")')
+          echo "matrix={\"environment\":$JSON}" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: build-matrix
+
+    strategy:
+      matrix: ${{ fromJSON(needs.build-matrix.outputs.matrix) }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Deploying to ${{ matrix.environment }}"
