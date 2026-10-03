@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  workflow_dispatch
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Terraform Plan"
+
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+
+    environment:
+      name: prod
+
+    steps:
+      - run: echo "Terraform Apply"
